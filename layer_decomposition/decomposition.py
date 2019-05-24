@@ -153,7 +153,7 @@ def assign_points_to_palette_faces(rgb_palette_hull, ordered_rgb_palette, unique
 
 def get_unique_weights(unique_colors, ordered_rgb_palette, tetra_pixel_dict):
     shortest_path_order = tuple(np.arange(len(ordered_rgb_palette))[1:])
-    unique_weights_list = np.zeros((unique_colors.shape[0], len(ordered_rgb_palette)))
+    unique_weights = np.zeros((unique_colors.shape[0], len(ordered_rgb_palette)))
 
     for vertice_tuple in tetra_pixel_dict:
         ordered_vertices = np.asarray(shortest_path_order)[np.asarray(sorted(list(shortest_path_order).index(s) for s in vertice_tuple))]
@@ -168,9 +168,9 @@ def get_unique_weights(unique_colors, ordered_rgb_palette, tetra_pixel_dict):
         if len(pixel_indices) != 0:
             arr = unique_colors[pixel_indices]
             Y = palette_weights(colors, arr)
-            unique_weights_list[pixel_indices[:, None], np.array([0] + list(ordered_vertex_tuple))] = Y.reshape((arr.shape[0],-1))
+            unique_weights[pixel_indices[:, None], np.array([0] + list(ordered_vertex_tuple))] = Y.reshape((arr.shape[0], -1))
     
-    return unique_weights_list
+    return unique_weights
 
 def rgb_weights(original_hull_vertices, rgb_palette):
     hull_vertices = original_hull_vertices.copy()
@@ -198,6 +198,7 @@ def rgb_weights(original_hull_vertices, rgb_palette):
         colors2xy[tuple(element)].append(index)
 
     unique_colors = np.array(list(colors2xy.keys()))
+
     tetra_pixel_dict, index_list = assign_points_to_palette_faces(rgb_palette_hull, ordered_rgb_palette, unique_colors)
     unique_weights = get_unique_weights(unique_colors, ordered_rgb_palette, tetra_pixel_dict)
 
