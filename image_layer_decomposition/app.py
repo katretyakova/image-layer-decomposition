@@ -83,7 +83,7 @@ def color_decomposition(filepath = None, image = None):
 
 import sys
 
-if __name__ == '__main__':
-    filename = sys.argv[1]
-    img = Image.open(filename)
-    color_decomposition(image = img)
+# if __name__ == '__main__':
+#     filename = sys.argv[1]
+#     img = Image.open(filename)
+#     color_decomposition(image = img)

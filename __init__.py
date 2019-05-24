@@ -1,1 +1,1 @@
-from layer_decomposition.app import color_decomposition
+from image_layer_decomposition.app import color_decomposition
